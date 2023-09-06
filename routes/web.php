@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ListingController::class, 'index']);
 
+Route::get('/listings/manage', [ListingController::class, 'manage']);
+
 Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
 
 Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
@@ -43,9 +45,8 @@ Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
-
-
 Route::post('/logout', [UserController::class, 'logout']);
+
 Route::post('/users/auth', [UserController::class, 'auth']);
 
 Route::post('/users', [UserController::class, 'store']);

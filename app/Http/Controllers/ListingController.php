@@ -32,17 +32,29 @@ class ListingController extends Controller
     {
         return view('listings.create');
     }
+    public function manage()
+    {
+        return view('listings.manage', ["listings" => auth()->user()->listings()->get()]);
+    }
     public function edit(Listing $listing)
     {
         return view("listings.edit", ['listing' => $listing]);
     }
     public function destroy(Listing $listing)
-    {
+    {     
+        if($listing->user_id != auth()->id()) {
+        abort(403, "Unauthorized");
+    }
+
         $listing->delete();
-        return redirect("/")->with(["message" => "Deleted!"]);
+        return back()->with(["message" => "Deleted!"]);
     }
     public function update(Request $request, Listing $listing)
     {
+        if($listing->user_id != auth()->id()) {
+            abort(403, "Unauthorized");
+        }
+
         $formFields = $request->validate([
             'title' => 'required',
             'company' => ['required'],
@@ -82,6 +94,7 @@ class ListingController extends Controller
 
         return redirect('/')->with('message', "Listing created succesfully");
     }
+  
 
 
 }
