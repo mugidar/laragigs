@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\UserController;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 
@@ -38,3 +39,10 @@ Route::get(
 );
 
 //Register
+Route::get('/register', [UserController::class, 'create']);
+Route::get('/login', [UserController::class, 'login']);
+
+
+Route::post('/logout', [UserController::class, 'logout']);
+
+Route::post('/users', [UserController::class, 'store']);
