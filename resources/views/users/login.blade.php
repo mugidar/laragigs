@@ -9,7 +9,7 @@
             <p class="mb-4">Log in</p>
         </header>
 
-        <form action="/users/login" method="POST">
+        <form action="/users/auth" method="POST">
             @csrf
 
 

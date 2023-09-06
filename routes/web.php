@@ -20,18 +20,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ListingController::class, 'index']);
 
-Route::post('/listings', [ListingController::class, 'store']);
+Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
 
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
-Route::put('/listings/{listing}', [ListingController::class, 'update']);
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
 
 Route::get(
     '/listings/create',
     [ListingController::class, 'create']
-);
+)->middleware('auth');
 
 Route::get(
     '/listings/{listing}',
@@ -39,10 +39,13 @@ Route::get(
 );
 
 //Register
-Route::get('/register', [UserController::class, 'create']);
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
+
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
 
 
 Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/users/auth', [UserController::class, 'auth']);
 
 Route::post('/users', [UserController::class, 'store']);
