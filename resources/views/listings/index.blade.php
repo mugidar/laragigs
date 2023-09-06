@@ -26,7 +26,7 @@
         </h1>
 
         @unless (count($listings) == 0)
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-2">
+        <div class="box-content grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach ($listings as $listing)
             <x-card><x-listing-card :listing="$listing" /></x-card>
         @endforeach
